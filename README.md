@@ -43,10 +43,11 @@ the header helper, including when selected from the desktop app. Use either
 the configured MCP or an existing plugin connection for each provider; disable
 duplicate entries with `enabled = false` in `config.toml`.
 
-Discord uses [purduehackers/discord-mcp](https://github.com/purduehackers/discord-mcp),
-pinned to a Git commit. It connects the official MCP v2 SDK to Discord.js REST
-over stdio, using `DISCORD_TOKEN` or Wack's existing `DISCORD_BOT_TOKEN`.
-Five tools expose Discord's REST methods with the token's existing permissions.
+Discord uses [purduehackers/discord-mcp](https://github.com/purduehackers/discord-mcp)
+at `https://discord.purduehackers.com/mcp`. The header helper sends `DISCORD_TOKEN`
+or Wack's existing `DISCORD_BOT_TOKEN` as `X-Discord-Token` on each request.
+The xmcp server exposes named operations with typed inputs, validated outputs,
+and the token's existing permissions. The [Discord skill](skills/ph-discord/SKILL.md) covers their use.
 Ask uses its native MCP at `https://ask.purduehackers.com/api/mcp`.
 
 HCB is a read-only CLI: `hcb get /organizations/purdue-hackers` for public v3,

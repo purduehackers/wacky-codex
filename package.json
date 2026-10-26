@@ -9,7 +9,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@purduehackers/discord-mcp": "git+ssh://git@github.com/purduehackers/discord-mcp.git#e06a85e6b05e1d09a63ee00837dabf09eb79eb48",
     "better-result": "^3",
     "zod": "^4.6.7"
   },

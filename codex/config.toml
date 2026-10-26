@@ -23,12 +23,8 @@ url = "https://mcp.sentry.dev/mcp"
 url = "https://mcp.cloudflare.com/mcp"
 
 [mcp_servers.discord]
-command = "sh"
-args = [
-  "-c",
-  'exec bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/mcp/discord.ts"',
-]
-startup_timeout_sec = 60
+url = "https://discord.purduehackers.com/mcp"
+http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/mcp/headers.ts" discord'
 
 [mcp_servers.ask]
 url = "https://ask.purduehackers.com/api/mcp"

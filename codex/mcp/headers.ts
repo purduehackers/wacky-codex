@@ -46,8 +46,26 @@ async function credentials(provider: string | undefined): Promise<Result<string,
       return requireToken(process.env.PAYLOAD_MCP_API_KEY, provider);
     case "ask":
       return requireToken(process.env.PHACK_ASK_API_KEY, provider);
+    case "discord":
+      return requireToken(process.env.DISCORD_TOKEN || process.env.DISCORD_BOT_TOKEN, provider);
     default:
-      return Result.err(new HarnessError({ message: "Expected github, hunter, cms, or ask." }));
+      return Result.err(
+        new HarnessError({ message: "Expected github, hunter, cms, ask, or discord." }),
+      );
+  }
+}
+
+function headers(provider: string | undefined, token: string) {
+  switch (provider) {
+    case "hunter":
+      return { "X-API-Key": token };
+    case "discord":
+      return {
+        "X-Discord-Token": token,
+        "X-Discord-Auth-Prefix": process.env.DISCORD_AUTH_PREFIX || "Bot",
+      };
+    default:
+      return { Authorization: "Bearer " + token };
   }
 }
 
@@ -56,11 +74,7 @@ const result = await credentials(provider);
 result.match({
   ok: (token) => {
     // Codex consumes stdout as authentication headers. Keep diagnostics on stderr.
-    console.log(
-      JSON.stringify(
-        provider === "hunter" ? { "X-API-Key": token } : { Authorization: "Bearer " + token },
-      ),
-    );
+    console.log(JSON.stringify(headers(provider, token)));
   },
   err: (error) => {
     console.error(error.message);
