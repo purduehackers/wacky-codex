@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+umask 077
+
+repo=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+tmp=$(mktemp "$repo/.env.pull.XXXXXX")
+trap 'rm -f "$tmp"' EXIT HUP INT TERM
+vercel env pull "$tmp" --yes --environment development \
+  --project agent-harness --scope purdue-hackers --non-interactive
+chmod 600 "$tmp"
+mv "$tmp" "$repo/.env.local"
+printf 'Updated .env.local from purdue-hackers/agent-harness (Development).\n'
