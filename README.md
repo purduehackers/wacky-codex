@@ -1,25 +1,28 @@
 # agent-harness
 
-Purdue Hackers' Codex dotfiles. Provider MCPs, a named profile, and PH skills.
+Purdue Hackers' Codex dotfiles: MCPs, hooks, and PH skills.
 
-Requires Bun, Codex with named profile files and inline hooks, GitHub CLI, and Vercel CLI.
+Requires Bun, Codex with inline hooks, GitHub CLI, and Vercel CLI.
 
 ```sh
 git clone git@github.com:purduehackers/agent-harness.git
 cd agent-harness
-./install
+./scripts/install
 vercel login
-./sync-env
+./scripts/sync-env
 gh auth login
-codex --profile purduehackers
+codex
 ```
 
-`install` symlinks the profile into `$CODEX_HOME` (default `~/.codex`), skills
-into `~/.agents/skills`, and this checkout into `~/.config/purduehackers`.
-It refuses conflicting files. Keep the checkout; `git pull` updates the links.
-Personal model and permission settings stay in the base Codex config.
+`codex/` contains `config.toml`, MCP helpers, and hooks. Setup scripts live in
+`scripts/`, skills in `skills/`, and Bun tests in `tests/`.
 
-In the PH profile, open `/hooks` to review and trust its hooks. Session and
+The installer links `codex/config.toml` to `$CODEX_HOME/config.toml` (default
+`~/.codex/config.toml`), skills into `~/.agents/skills`, and this checkout into
+`~/.config/purduehackers`. It refuses conflicting files and removes only its own
+old profile symlink. Keep the checkout; `git pull` updates the links.
+
+Open `/hooks` to review and trust the hooks. Session and
 subagent starts load PH context, including after compaction. Tool and lifecycle
 hooks append metadata to `$CODEX_HOME/purduehackers/audit/YYYY-MM-DD.jsonl`
 (default `~/.codex`); arguments, responses, and message text are not stored.
@@ -29,21 +32,21 @@ Connect the OAuth MCPs once:
 
 ```sh
 for server in vercel linear notion figma sentry cloudflare; do
-  codex --profile purduehackers mcp login "$server"
+  codex mcp login "$server"
 done
 ```
 
 GitHub uses `gh` authentication. Hunter reads `.env.local` through
 the header helper, including when selected from the desktop app. Use either
-this profile's MCP or an existing plugin connection for each provider; disable
-duplicate entries with `enabled = false` in the profile.
+the configured MCP or an existing plugin connection for each provider; disable
+duplicate entries with `enabled = false` in `config.toml`.
 
 Discord uses the local [Discord MCP](https://github.com/EL4CTEO/discord-mcp),
 pinned to 1.2.0 and launched with Bun. It uses Wack's bot token and defaults to
 the PH server. The package's destructive-action and mass-mention defaults stay
 disabled; its configuration is available through `mcp_servers.discord.env`.
 
-`sync-env` pulls shared variables from the **Development** environment
+`scripts/sync-env` pulls shared variables from the **Development** environment
 of [Purdue Hackers / agent-harness](https://vercel.com/purdue-hackers/agent-harness/settings/environment-variables).
 No secrets belong in Git. OAuth connections use each organizer's own account.
 

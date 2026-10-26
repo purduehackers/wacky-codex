@@ -20,7 +20,7 @@ if (provider === "github") {
 } else {
   throw new Error("Expected github, hunter, or cms.");
 }
-if (!token) throw new Error(`Missing credentials for ${provider}; run ./sync-env.`);
+if (!token) throw new Error(`Missing credentials for ${provider}; run ./scripts/sync-env.`);
 
 // Stdout is consumed by Codex as authentication headers. Never log it elsewhere.
 console.log(

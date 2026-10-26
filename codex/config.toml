@@ -1,11 +1,11 @@
-# Layered over personal Codex settings with --profile purduehackers.
+# Purdue Hackers Codex configuration.
 
 [mcp_servers.vercel]
 url = "https://mcp.vercel.com"
 
 [mcp_servers.github]
 url = "https://api.githubcopilot.com/mcp/"
-http_headers_helper = 'bun --no-env-file "$HOME/.config/purduehackers/codex/headers.ts" github'
+http_headers_helper = 'bun --no-env-file "$HOME/.config/purduehackers/codex/mcp/headers.ts" github'
 
 [mcp_servers.linear]
 url = "https://mcp.linear.app/mcp"
@@ -26,7 +26,7 @@ url = "https://mcp.cloudflare.com/mcp"
 command = "sh"
 args = [
   "-c",
-  'exec bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/discord.ts"',
+  'exec bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/mcp/discord.ts"',
 ]
 startup_timeout_sec = 60
 
@@ -35,62 +35,62 @@ DISCORD_DEFAULT_GUILD = "772576325897945119"
 
 [mcp_servers.hunter]
 url = "https://mcp.hunter.io/mcp"
-http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/headers.ts" hunter'
+http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/mcp/headers.ts" hunter'
 
 # Payload MCP keys are separate from service-account REST keys.
 [mcp_servers.cms]
 url = "https://cms.purduehackers.com/api/mcp"
 enabled = false
-http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/headers.ts" cms'
+http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/mcp/headers.ts" cms'
 
-# Profile-local lifecycle hooks; review and trust them with /hooks in Codex.
+# Lifecycle hooks; review and trust them with /hooks in Codex.
 [[hooks.SessionStart]]
 matcher = "^(startup|resume|clear|compact|fork)$"
 [[hooks.SessionStart.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 5
 additionalContextLimit = 1500
 
 [[hooks.SubagentStart]]
 [[hooks.SubagentStart.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 5
 additionalContextLimit = 1500
 
 [[hooks.PreToolUse]]
 [[hooks.PreToolUse.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 5
 
 [[hooks.PostToolUse]]
 [[hooks.PostToolUse.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 5
 
 [[hooks.SubagentStop]]
 [[hooks.SubagentStop.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 5
 
 [[hooks.Stop]]
 [[hooks.Stop.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 5
 
 [[hooks.Interrupt]]
 [[hooks.Interrupt.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 3
 
 [[hooks.SessionEnd]]
 [[hooks.SessionEnd.hooks]]
 type = "command"
-command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks/lifecycle.ts"'
 timeout = 3

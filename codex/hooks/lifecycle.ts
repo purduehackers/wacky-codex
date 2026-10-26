@@ -79,7 +79,7 @@ async function run() {
   }
 
   if (name === "SessionStart" || name === "SubagentStart") {
-    const skills = resolve(import.meta.dir, "../skills");
+    const skills = resolve(import.meta.dir, "../../skills");
     const context = (await Bun.file(join(skills, "ph-context/SKILL.md")).text())
       .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/u, "")
       .trim();
@@ -88,7 +88,7 @@ async function run() {
         hookSpecificOutput: {
           hookEventName: name,
           additionalContext:
-            "Purdue Hackers profile is active. PH skills are in " +
+            "Purdue Hackers configuration is active. PH skills are in " +
             skills +
             ". Read only the relevant provider skill and linked topic references.\n\n" +
             context,

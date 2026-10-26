@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-repo=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)
 target=${PH_INSTALL_ROOT:-$HOME}
 codex_dir=${CODEX_HOME:-$target/.codex}
 if [ -n "${PH_INSTALL_ROOT:-}" ]; then codex_dir=$target/.codex; fi
@@ -21,14 +21,24 @@ link() {
 }
 
 check_link "$repo" "$target/.config/purduehackers"
-check_link "$repo/codex/purduehackers.config.toml" "$codex_dir/purduehackers.config.toml"
+check_link "$repo/codex/config.toml" "$codex_dir/config.toml"
 for skill in "$repo"/skills/*; do
   check_link "$skill" "$target/.agents/skills/$(basename -- "$skill")"
 done
 
 link "$repo" "$target/.config/purduehackers"
-link "$repo/codex/purduehackers.config.toml" "$codex_dir/purduehackers.config.toml"
+link "$repo/codex/config.toml" "$codex_dir/config.toml"
 for skill in "$repo"/skills/*; do
   link "$skill" "$target/.agents/skills/$(basename -- "$skill")"
 done
-printf 'Installed Purdue Hackers profile and skills. Run ./sync-env, then codex --profile purduehackers.\n'
+
+# Retire only the profile link created by an earlier version of this installer.
+legacy_profile=$codex_dir/purduehackers.config.toml
+if [ -L "$legacy_profile" ]; then
+  case "$(readlink "$legacy_profile")" in
+    "$repo/codex/purduehackers.config.toml"|"$repo/codex/config.toml")
+      rm "$legacy_profile"
+      ;;
+  esac
+fi
+printf 'Installed Purdue Hackers config and skills. Run ./scripts/sync-env, then codex.\n'

@@ -16,12 +16,15 @@ afterEach(async () => {
 });
 
 async function invoke(directory: string, event: unknown, raw = false) {
-  const child = Bun.spawn([process.execPath, "--no-env-file", join(import.meta.dir, "hooks.ts")], {
-    env: { ...process.env, CODEX_HOME: directory },
-    stdin: new Response(raw ? String(event) : JSON.stringify(event)),
-    stdout: "pipe",
-    stderr: "pipe",
-  });
+  const child = Bun.spawn(
+    [process.execPath, "--no-env-file", join(import.meta.dir, "../codex/hooks/lifecycle.ts")],
+    {
+      env: { ...process.env, CODEX_HOME: directory },
+      stdin: new Response(raw ? String(event) : JSON.stringify(event)),
+      stdout: "pipe",
+      stderr: "pipe",
+    },
+  );
   const [stdout, stderr, code] = await Promise.all([
     new Response(child.stdout).text(),
     new Response(child.stderr).text(),

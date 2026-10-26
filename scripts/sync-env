@@ -2,7 +2,7 @@
 set -eu
 umask 077
 
-repo=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)
 tmp=$(mktemp "$repo/.env.pull.XXXXXX")
 trap 'rm -f "$tmp"' EXIT HUP INT TERM
 vercel env pull "$tmp" --yes --environment development \

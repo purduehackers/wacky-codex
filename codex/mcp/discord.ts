@@ -1,5 +1,5 @@
 const token = process.env.DISCORD_BOT_TOKEN;
-if (!token) throw new Error("Missing DISCORD_BOT_TOKEN; run ./sync-env.");
+if (!token) throw new Error("Missing DISCORD_BOT_TOKEN; run ./scripts/sync-env.");
 
 // Forward Discord configuration and runtime paths, not other providers' keys.
 const env = Object.fromEntries(
