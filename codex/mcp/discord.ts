@@ -1,14 +1,16 @@
+import { fileURLToPath } from "node:url";
+
 import { Result } from "better-result";
 
 import { HarnessError } from "../harness-error";
 
 function run() {
   return Result.gen(async function* () {
-    const token = process.env.DISCORD_BOT_TOKEN;
+    const token = process.env.DISCORD_TOKEN || process.env.DISCORD_BOT_TOKEN;
     if (!token) {
       return Result.err(
         new HarnessError({
-          message: "Missing DISCORD_BOT_TOKEN; run ./scripts/sync-env.",
+          message: "Missing DISCORD_TOKEN or DISCORD_BOT_TOKEN; run ./scripts/sync-env.",
         }),
       );
     }
@@ -26,12 +28,19 @@ function run() {
 
     const child = yield* Result.try({
       try: () =>
-        Bun.spawn(["bun", "--no-env-file", "x", "--bun", "@el4cteo/discord-mcp@1.2.0"], {
-          env,
-          stdin: "inherit",
-          stdout: "inherit",
-          stderr: "inherit",
-        }),
+        Bun.spawn(
+          [
+            "bun",
+            "--no-env-file",
+            fileURLToPath(import.meta.resolve("@purduehackers/discord-mcp")),
+          ],
+          {
+            env,
+            stdin: "inherit",
+            stdout: "inherit",
+            stderr: "inherit",
+          },
+        ),
       catch: () => new HarnessError({ message: "Could not start Discord MCP." }),
     });
     for (const signal of ["SIGINT", "SIGTERM"] as const) {

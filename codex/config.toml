@@ -30,8 +30,9 @@ args = [
 ]
 startup_timeout_sec = 60
 
-[mcp_servers.discord.env]
-DISCORD_DEFAULT_GUILD = "772576325897945119"
+[mcp_servers.ask]
+url = "https://ask.purduehackers.com/api/mcp"
+http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/mcp/headers.ts" ask'
 
 [mcp_servers.hunter]
 url = "https://mcp.hunter.io/mcp"

@@ -22,6 +22,7 @@ link() {
 
 check_link "$repo" "$target/.config/purduehackers"
 check_link "$repo/codex/config.toml" "$codex_dir/config.toml"
+check_link "$repo/cli/hcb/index.ts" "$target/.local/bin/hcb"
 for skill in "$repo"/skills/*; do
   check_link "$skill" "$target/.agents/skills/$(basename -- "$skill")"
 done
@@ -30,6 +31,7 @@ done
 
 link "$repo" "$target/.config/purduehackers"
 link "$repo/codex/config.toml" "$codex_dir/config.toml"
+link "$repo/cli/hcb/index.ts" "$target/.local/bin/hcb"
 for skill in "$repo"/skills/*; do
   link "$skill" "$target/.agents/skills/$(basename -- "$skill")"
 done
@@ -43,4 +45,4 @@ if [ -L "$legacy_profile" ]; then
       ;;
   esac
 fi
-printf 'Installed Purdue Hackers config and skills. Run ./scripts/sync-env, then codex.\n'
+printf 'Installed Purdue Hackers config, skills, and hcb in ~/.local/bin. Run ./scripts/sync-env, then codex.\n'

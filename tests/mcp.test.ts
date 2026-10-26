@@ -64,11 +64,13 @@ test("header helpers select only the requested provider credential", async () =>
     GITHUB_TOKEN: "fixture-github",
     HUNTER_API_KEY: "fixture-hunter",
     PAYLOAD_MCP_API_KEY: "fixture-cms",
+    PHACK_ASK_API_KEY: "fixture-ask",
   };
   for (const [provider, headers] of [
     ["github", { Authorization: "Bearer fixture-gh" }],
     ["hunter", { "X-API-Key": "fixture-hunter" }],
     ["cms", { Authorization: "Bearer fixture-cms" }],
+    ["ask", { Authorization: "Bearer fixture-ask" }],
   ] as const) {
     expect(await invoke("headers", [provider], env)).toEqual({
       code: 0,
@@ -84,7 +86,7 @@ test("header helpers select only the requested provider credential", async () =>
 });
 
 test("missing credentials and invalid providers fail without writing protocol output", async () => {
-  for (const args of [[], ["unknown"], ["hunter"], ["cms"], ["github"]]) {
+  for (const args of [[], ["unknown"], ["hunter"], ["cms"], ["github"], ["ask"]]) {
     const result = await invoke("headers", args);
     expect(result.code).toBe(1);
     expect(result.stdout).toBe("");
@@ -118,10 +120,11 @@ test("Discord forwards protocol streams and exit status while isolating provider
   const directory = await executable(
     "bun",
     `
-[ "$*" = "--no-env-file x --bun @el4cteo/discord-mcp@1.2.0" ] || exit 70
+[ "$1" = "--no-env-file" ] || exit 70
+case "$2" in */node_modules/@purduehackers/discord-mcp/src/index.ts) ;; *) exit 70 ;; esac
 [ "$DISCORD_TOKEN" = "fixture-discord" ] || exit 71
-[ "$DISCORD_DEFAULT_GUILD" = "fixture-guild" ] || exit 72
-[ -z "$DISCORD_BOT_TOKEN$HUNTER_API_KEY$GH_TOKEN$PAYLOAD_MCP_API_KEY" ] || exit 73
+[ "$DISCORD_AUTH_PREFIX" = "Bearer" ] || exit 72
+[ -z "$DISCORD_BOT_TOKEN$HUNTER_API_KEY$GH_TOKEN$PAYLOAD_MCP_API_KEY$PHACK_ASK_API_KEY" ] || exit 73
 printf 'fixture-mcp-frame\n'
 printf 'fixture-diagnostic\n' >&2
 exit 7
@@ -132,10 +135,11 @@ exit 7
       PATH: directory,
       HOME: directory,
       DISCORD_BOT_TOKEN: "fixture-discord",
-      DISCORD_DEFAULT_GUILD: "fixture-guild",
+      DISCORD_AUTH_PREFIX: "Bearer",
       HUNTER_API_KEY: "fixture-hunter",
       GH_TOKEN: "fixture-gh",
       PAYLOAD_MCP_API_KEY: "fixture-cms",
+      PHACK_ASK_API_KEY: "fixture-ask",
     }),
   ).toEqual({ code: 7, stdout: "fixture-mcp-frame\n", stderr: "fixture-diagnostic\n" });
 });
@@ -144,7 +148,7 @@ test("Discord reports missing credentials and launch failures without a stack tr
   expect(await invoke("discord", [])).toEqual({
     code: 1,
     stdout: "",
-    stderr: "Missing DISCORD_BOT_TOKEN; run ./scripts/sync-env.\n",
+    stderr: "Missing DISCORD_TOKEN or DISCORD_BOT_TOKEN; run ./scripts/sync-env.\n",
   });
   expect(await invoke("discord", [], { DISCORD_BOT_TOKEN: "fixture-discord" })).toEqual({
     code: 1,

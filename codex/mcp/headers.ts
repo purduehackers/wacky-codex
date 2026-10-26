@@ -44,8 +44,10 @@ async function credentials(provider: string | undefined): Promise<Result<string,
       return requireToken(process.env.HUNTER_API_KEY, provider);
     case "cms":
       return requireToken(process.env.PAYLOAD_MCP_API_KEY, provider);
+    case "ask":
+      return requireToken(process.env.PHACK_ASK_API_KEY, provider);
     default:
-      return Result.err(new HarnessError({ message: "Expected github, hunter, or cms." }));
+      return Result.err(new HarnessError({ message: "Expected github, hunter, cms, or ask." }));
   }
 }
 

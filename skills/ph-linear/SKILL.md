@@ -3,7 +3,7 @@ name: ph-linear
 description: Manage Purdue Hackers Linear issues, projects, initiatives, cycles, status updates, and workspace membership.
 ---
 
-Use Linear MCP/plugin and discover the actual workspace, team, and project. Resolve organizer identities through ph-context when needed.
+Use Linear MCP/plugin and discover the actual workspace, team, and project.
 
 Map task/ticket to issue, sprint to cycle, and cross-project strategy to initiative. Inspect current schemas and workflow states.
 

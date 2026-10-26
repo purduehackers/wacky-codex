@@ -8,5 +8,5 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["codex/**/*.ts", "tests/**/*.ts"]
+  "include": ["codex/**/*.ts", "cli/**/*.ts", "tests/**/*.ts"]
 }
