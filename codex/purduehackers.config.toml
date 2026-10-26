@@ -42,3 +42,55 @@ http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "
 url = "https://cms.purduehackers.com/api/mcp"
 enabled = false
 http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/headers.ts" cms'
+
+# Profile-local lifecycle hooks; review and trust them with /hooks in Codex.
+[[hooks.SessionStart]]
+matcher = "^(startup|resume|clear|compact|fork)$"
+[[hooks.SessionStart.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 5
+additionalContextLimit = 1500
+
+[[hooks.SubagentStart]]
+[[hooks.SubagentStart.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 5
+additionalContextLimit = 1500
+
+[[hooks.PreToolUse]]
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 5
+
+[[hooks.PostToolUse]]
+[[hooks.PostToolUse.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 5
+
+[[hooks.SubagentStop]]
+[[hooks.SubagentStop.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 5
+
+[[hooks.Stop]]
+[[hooks.Stop.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 5
+
+[[hooks.Interrupt]]
+[[hooks.Interrupt.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 3
+
+[[hooks.SessionEnd]]
+[[hooks.SessionEnd.hooks]]
+type = "command"
+command = 'bun --no-env-file "$HOME/.config/purduehackers/codex/hooks.ts"'
+timeout = 3

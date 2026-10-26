@@ -32,3 +32,13 @@ collection schema in the CMS repo before writing. List queries use `limit`,
 - Respect the service account's access result; do not bypass denied writes.
   Verify the resulting record/public page and link the admin document at
   `/admin/collections/<collection>/<id>`.
+
+Read only the relevant topic below. These are PH workflows; discover the connected
+provider's current tools and input schemas instead of assuming a tool name.
+
+- [Events](references/events.md): Manage events, RSVPs, and email blasts on cms.purduehackers.com
+- [Hack nights](references/hack-nights.md): Create, update, and publish hack night session records on cms.purduehackers.com
+- [Media](references/media.md): List, fetch, upload, and delete image/file assets in the CMS media library
+- [Service accounts](references/service-accounts.md): Manage service-account (API-key-only) identities in the CMS — bots and integrations
+- [Showcases](references/showcases.md): Manage the ugrants (microgrants) and shelter-projects showcases on cms.purduehackers.com
+- [Users](references/users.md): Admin-only management of CMS user accounts — invite, update roles, remove

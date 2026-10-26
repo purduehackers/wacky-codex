@@ -8,6 +8,11 @@ Resolve the deployment's linked repository and production branch before editing
 or deploying. Check the actual deployment and affected URL after a change.
 Use native Codex worktrees, code tools, and scheduled tasks for execution.
 
+Read the relevant provider skill's topic guide for detailed work:
+[Vercel](../ph-vercel/SKILL.md), [GitHub](../ph-github/SKILL.md),
+[Sentry](../ph-sentry/SKILL.md), [Linear](../ph-linear/SKILL.md), or
+[Cloudflare](../ph-cloudflare/SKILL.md). Use the current MCP/plugin schema.
+
 PH Vercel team: `purdue-hackers` (`team_kOQWJUQYzGW4blWthdK71Y8A`).
 GitHub and Sentry organization: `purduehackers`. Discover Cloudflare account
 and zone IDs from the connected account. Repository instructions take priority

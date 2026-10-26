@@ -2,7 +2,7 @@
 
 Purdue Hackers' Codex dotfiles. Provider MCPs, a named profile, and PH skills.
 
-Requires Bun, Codex with named profile files, GitHub CLI, and Vercel CLI.
+Requires Bun, Codex with named profile files and inline hooks, GitHub CLI, and Vercel CLI.
 
 ```sh
 git clone git@github.com:purduehackers/agent-harness.git
@@ -18,6 +18,12 @@ codex --profile purduehackers
 into `~/.agents/skills`, and this checkout into `~/.config/purduehackers`.
 It refuses conflicting files. Keep the checkout; `git pull` updates the links.
 Personal model and permission settings stay in the base Codex config.
+
+In the PH profile, open `/hooks` to review and trust its hooks. Session and
+subagent starts load PH context, including after compaction. Tool and lifecycle
+hooks append metadata to `$CODEX_HOME/purduehackers/audit/YYYY-MM-DD.jsonl`
+(default `~/.codex`); arguments, responses, and message text are not stored.
+This is a local, best-effort activity log. Codex handles usage accounting.
 
 Connect the OAuth MCPs once:
 
@@ -45,3 +51,8 @@ CMS REST access uses the copied key. CMS MCP is disabled until a separate
 `PAYLOAD_MCP_API_KEY` is provisioned and its entry is enabled; the current CMS
 MCP exposes reads. PH skills cover CMS writes, HCB, Ask, and short links.
 Native Codex handles coding, search, and scheduling.
+
+The ten provider skills include all 100 retained topic guides from
+[Wack Hacker](https://github.com/purduehackers/wack-hacker/tree/main/packages/agents/agent/subagents),
+adapted for Codex/MCP. The shared skill directory and small lifecycle hooks take
+inspiration from [e-stack](https://github.com/ElliotDrel/e-stack).

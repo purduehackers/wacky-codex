@@ -27,3 +27,13 @@ This API is read-only: no transfers, card issuance, or receipt uploads.
 Receipt metadata gives counts/missing status, not files. Link transactions to
 `https://hcb.hackclub.com/hcb/<id>` and the ledger to
 `https://hcb.hackclub.com/purdue-hackers`.
+
+Read only the relevant topic below. These are PH workflows; discover the connected
+provider's current tools and input schemas instead of assuming a tool name.
+
+- [Card charges](references/card-charges.md): List Hack Club Bank card charges with optional cardholder filter for microgrant spend tracking.
+- [Donations](references/donations.md): List Hack Club Bank donations and total them over a date range for fundraising reporting.
+- [Invoices](references/invoices.md): List Hack Club Bank invoices and surface outstanding (unpaid) ones for sponsor follow-ups.
+- [Receipts](references/receipts.md): Check which Hack Club Bank transactions are missing an attached receipt. Files themselves are NOT available via API.
+- [Transactions](references/transactions.md): List, inspect, and search Hack Club Bank transactions by memo, amount, or date range.
+- [Transfers](references/transfers.md): View Hack Club Bank inter-org transfers (disbursements between HCB organizations).
