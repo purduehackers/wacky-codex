@@ -37,10 +37,6 @@ DISCORD_DEFAULT_GUILD = "772576325897945119"
 url = "https://mcp.hunter.io/mcp"
 http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/headers.ts" hunter'
 
-[mcp_servers.serpapi]
-url = "https://mcp.serpapi.com/mcp"
-http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/headers.ts" serpapi'
-
 # Payload MCP keys are separate from service-account REST keys.
 [mcp_servers.cms]
 url = "https://cms.purduehackers.com/api/mcp"

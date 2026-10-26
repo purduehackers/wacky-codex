@@ -1,7 +1,6 @@
 const provider = Bun.argv[2];
 const variables: Record<string, string> = {
   hunter: "HUNTER_API_KEY",
-  serpapi: "SERPAPI_API_KEY",
   cms: "PAYLOAD_MCP_API_KEY",
 };
 
@@ -19,7 +18,7 @@ if (provider === "github") {
 } else if (provider && variables[provider]) {
   token = process.env[variables[provider]];
 } else {
-  throw new Error("Expected github, hunter, serpapi, or cms.");
+  throw new Error("Expected github, hunter, or cms.");
 }
 if (!token) throw new Error(`Missing credentials for ${provider}; run ./sync-env.`);
 
