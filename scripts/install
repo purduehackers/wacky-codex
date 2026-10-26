@@ -26,6 +26,8 @@ for skill in "$repo"/skills/*; do
   check_link "$skill" "$target/.agents/skills/$(basename -- "$skill")"
 done
 
+(cd "$repo" && bun install --frozen-lockfile)
+
 link "$repo" "$target/.config/purduehackers"
 link "$repo/codex/config.toml" "$codex_dir/config.toml"
 for skill in "$repo"/skills/*; do

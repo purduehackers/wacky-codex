@@ -16,8 +16,9 @@ codex
 
 `codex/` contains `config.toml`, MCP helpers, and hooks. Setup scripts live in
 `scripts/`, skills in `skills/`, and Bun tests in `tests/`.
+Checks: `bun run lint`, `bun run format --check`, `bun run typecheck`, and `bun test`.
 
-The installer links `codex/config.toml` to `$CODEX_HOME/config.toml` (default
+The installer installs dependencies and links `codex/config.toml` to `$CODEX_HOME/config.toml` (default
 `~/.codex/config.toml`), skills into `~/.agents/skills`, and this checkout into
 `~/.config/purduehackers`. It refuses conflicting files and removes only its own
 old profile symlink. Keep the checkout; `git pull` updates the links.

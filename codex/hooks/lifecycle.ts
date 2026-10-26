@@ -1,109 +1,90 @@
+/**
+ * @fileoverview Validates Codex events and records only approved metadata.
+ * Audit failures leave context delivery and the agent running.
+ */
 import { mkdir, open } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 
-const events = new Set([
-  "SessionStart",
-  "SubagentStart",
-  "PreToolUse",
-  "PostToolUse",
-  "SubagentStop",
-  "Stop",
-  "Interrupt",
-  "SessionEnd",
-]);
+import { Result } from "better-result";
 
-function object(value: unknown): Record<string, unknown> {
-  return value !== null && typeof value === "object" && !Array.isArray(value)
-    ? (value as Record<string, unknown>)
-    : {};
-}
+import { HarnessError } from "../harness-error";
+import { hookEventSchema, type HookEvent } from "./schemas";
 
-function identifier(value: unknown): string | undefined {
-  return typeof value === "string" && /^[\w.:-]{1,180}$/u.test(value) ? value : undefined;
-}
+async function audit(event: HookEvent) {
+  if (!event.session_id) return Result.ok();
 
-async function audit(event: Record<string, unknown>, name: string) {
-  const session = identifier(event.session_id);
-  if (!session) return;
+  const { hook_event_name, tool_response: reportedError, ...metadata } = event;
   const now = new Date().toISOString();
   const directory = join(
     process.env.CODEX_HOME || join(homedir(), ".codex"),
     "purduehackers",
     "audit",
   );
-  const record: Record<string, unknown> = {
+  const record = {
     time: now,
-    event: name,
-    session_id: session,
+    event: hook_event_name,
+    ...metadata,
+    outcome:
+      hook_event_name === "PostToolUse"
+        ? reportedError
+          ? "reported_error"
+          : "returned"
+        : undefined,
   };
-  // Allowlist metadata; never persist arguments, responses, prompts, or transcripts.
-  for (const field of ["turn_id", "tool_name", "tool_use_id", "agent_id", "agent_type", "source"]) {
-    const value = identifier(event[field]);
-    if (value) record[field] = value;
-  }
-  if (name === "PostToolUse") {
-    const response = object(event.tool_response);
-    // A returned response is not proof that the requested external effect succeeded.
-    record.outcome =
-      response.isError === true ||
-      response.ok === false ||
-      (typeof response.exit_code === "number" && response.exit_code !== 0)
-        ? "reported_error"
-        : "returned";
-  }
-  await mkdir(directory, { recursive: true, mode: 0o700 });
-  const file = await open(join(directory, now.slice(0, 10) + ".jsonl"), "a", 0o600);
-  try {
-    await file.chmod(0o600);
-    await file.write(JSON.stringify(record) + "\n");
-  } finally {
-    await file.close();
-  }
+
+  return Result.tryPromise({
+    try: async () => {
+      await mkdir(directory, { recursive: true, mode: 0o700 });
+      await using file = await open(join(directory, now.slice(0, 10) + ".jsonl"), "a", 0o600);
+      await file.chmod(0o600);
+      await file.write(JSON.stringify(record) + "\n");
+    },
+    catch: () => new HarnessError({ message: "PH hook: local audit log unavailable." }),
+  });
 }
 
 async function run() {
-  let event: Record<string, unknown>;
-  try {
-    event = object(JSON.parse(await Bun.stdin.text()));
-  } catch {
+  const input = await Result.tryPromise({
+    try: () => Bun.stdin.json(),
+    catch: () => new HarnessError({ message: "PH hook: invalid input." }),
+  });
+  if (input.isErr()) return;
+  const event = hookEventSchema.safeParse(input.value);
+  if (!event.success) return;
+
+  const saved = await audit(event.data);
+  if (saved.isErr()) console.error(saved.error.message);
+
+  const name = event.data.hook_event_name;
+  if (name !== "SessionStart" && name !== "SubagentStart") {
+    console.log("{}");
     return;
   }
-  const name = event.hook_event_name;
-  if (typeof name !== "string" || !events.has(name)) return;
 
-  try {
-    await audit(event, name);
-  } catch {
-    console.error("PH hook: local audit log unavailable.");
-  }
-
-  if (name === "SessionStart" || name === "SubagentStart") {
-    const skills = resolve(import.meta.dir, "../../skills");
-    const context = (await Bun.file(join(skills, "ph-context/SKILL.md")).text())
-      .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/u, "")
-      .trim();
-    console.log(
-      JSON.stringify({
-        hookSpecificOutput: {
-          hookEventName: name,
-          additionalContext:
-            "Purdue Hackers configuration is active. PH skills are in " +
-            skills +
-            ". Read only the relevant provider skill and linked topic references.\n\n" +
-            context,
-        },
-      }),
-    );
-  } else {
-    // Stop and SubagentStop require JSON, even when no continuation is requested.
+  const skills = resolve(import.meta.dir, "../../skills");
+  const context = await Result.tryPromise({
+    try: () => Bun.file(join(skills, "ph-context/SKILL.md")).text(),
+    catch: () => new HarnessError({ message: "PH hook: context unavailable." }),
+  });
+  if (context.isErr()) {
+    console.error(context.error.message);
     console.log("{}");
+    return;
   }
+
+  console.log(
+    JSON.stringify({
+      hookSpecificOutput: {
+        hookEventName: name,
+        additionalContext:
+          "Purdue Hackers configuration is active. PH skills are in " +
+          skills +
+          ". Read only the relevant provider skill and linked topic references.\n\n" +
+          context.value.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/u, "").trim(),
+      },
+    }),
+  );
 }
 
-try {
-  await run();
-} catch {
-  console.error("PH hook: context unavailable.");
-  console.log("{}");
-}
+await run();

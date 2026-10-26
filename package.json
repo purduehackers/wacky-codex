@@ -1,0 +1,25 @@
+{
+  "name": "@purduehackers/agent-harness",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "format": "oxfmt",
+    "lint": "oxlint --deny-warnings",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-result": "^3",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@rayhanadev/ox": "0.4.0",
+    "@types/bun": "^1.4.4",
+    "oxclippy": "^0.2.0",
+    "oxfmt": "^0.74.0",
+    "oxlint": "^1.89.0",
+    "oxlint-tsgolint": "^7.0.2005",
+    "typescript": "^7"
+  },
+  "packageManager": "bun@1.4.0"
+}
