@@ -32,7 +32,12 @@ the header helper, including when selected from the desktop app. Use either
 this profile's MCP or an existing plugin connection for each provider; disable
 duplicate entries with `enabled = false` in the profile.
 
-`sync-env` pulls the six shared variables from the **Development** environment
+Discord uses the local [Discord MCP](https://github.com/EL4CTEO/discord-mcp),
+pinned to 1.2.0 and launched with Bun. It uses Wack's bot token and defaults to
+the PH server. The package's destructive-action and mass-mention defaults stay
+disabled; its configuration is available through `mcp_servers.discord.env`.
+
+`sync-env` pulls the seven shared variables from the **Development** environment
 of [Purdue Hackers / agent-harness](https://vercel.com/purdue-hackers/agent-harness/settings/environment-variables).
 No secrets belong in Git. OAuth connections use each organizer's own account.
 

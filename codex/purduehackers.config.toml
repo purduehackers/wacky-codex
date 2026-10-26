@@ -22,6 +22,17 @@ url = "https://mcp.sentry.dev/mcp"
 [mcp_servers.cloudflare]
 url = "https://mcp.cloudflare.com/mcp"
 
+[mcp_servers.discord]
+command = "sh"
+args = [
+  "-c",
+  'exec bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/discord.ts"',
+]
+startup_timeout_sec = 60
+
+[mcp_servers.discord.env]
+DISCORD_DEFAULT_GUILD = "772576325897945119"
+
 [mcp_servers.hunter]
 url = "https://mcp.hunter.io/mcp"
 http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/headers.ts" hunter'
