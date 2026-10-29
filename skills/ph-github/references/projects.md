@@ -4,3 +4,9 @@
 - Resolve the project schema, item node ID, field ID, and any single-select option ID before updating a field.
 - Adding/removing an issue or PR from a project does not create/delete the underlying issue or PR.
 - Use the current typed field value for text, number, date, or selection.
+
+GraphQL field values use one matching member: `{ text: "value" }`,
+`{ number: 42 }`, `{ date: "2026-10-29" }`, or
+`{ singleSelectOptionId: "option-id" }`. Resolve option IDs from the project;
+display labels cannot replace them. If MCP lacks the operation, use the
+existing `gh` login with `gh api graphql` and the same resolved IDs.

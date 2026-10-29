@@ -1,6 +1,11 @@
 # Showcases
 
-- Wack's ugrants and shelter-projects names are wrapper aliases. The verified REST collection slugs are microgrants and shelter; recheck the CMS source schema before writing.
-- Microgrants showcase project name, author, description, image, author/project links, and visible. Shelter records include name, last_division, last_owner, description, image, and visible.
-- Visible controls public display. Set it according to the user's publishing intent; preparing a draft does not imply publishing.
-- Upload the required image first and use its media relationship ID. Preserve the existing image when an edit does not request a replacement.
+Use `/api/microgrants` and `/api/shelter`. Wack's `ugrants` and
+`shelter-projects` names are not the current REST routes.
+
+- Microgrants require `name`, `author`, `description`, and `image`. Optional links are `authorUrl` and `projectUrl`.
+- Shelter requires `name`, `last_division`, `last_owner`, `description`, and `image`.
+- `image` is a media relationship ID, not Wack's `image_id` input. Upload first; preserve the existing ID on unrelated edits.
+- Both collections default `visible` to **true**. Set `visible: false` explicitly when preparing a draft.
+- Publishing sets `visible: true`; hiding sets it to false. Verify the record and public showcase after a visibility change.
+- Recheck [Microgrants.ts](https://github.com/purduehackers/cms/blob/main/src/collections/Microgrants.ts) and [Shelter.ts](https://github.com/purduehackers/cms/blob/main/src/collections/Shelter.ts) when fields change.

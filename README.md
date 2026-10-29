@@ -15,12 +15,12 @@ codex
 ```
 
 `codex/` contains `config.toml`, MCP helpers, and hooks. Setup scripts live in
-`scripts/`, skills in `skills/`, the HCB CLI in `cli/hcb/`, and Bun tests in `tests/`.
+`scripts/`, skills in `skills/`, CLIs in `cli/`, and Bun tests in `tests/`.
 Checks: `bun run lint`, `bun run format --check`, `bun run typecheck`, and `bun test`.
 
 The installer installs dependencies and links `codex/config.toml` to `$CODEX_HOME/config.toml` (default
 `~/.codex/config.toml`), skills into `~/.agents/skills`, and this checkout into
-`~/.config/purduehackers`. It also links `hcb` into `~/.local/bin`; keep that directory
+`~/.config/purduehackers`. It also links `hcb` and `phack` into `~/.local/bin`; keep that directory
 on `PATH`. It refuses conflicting files and removes only its own
 old profile symlink. Keep the checkout; `git pull` updates the links.
 
@@ -49,6 +49,10 @@ or Wack's existing `DISCORD_BOT_TOKEN` as `X-Discord-Token` on each request.
 The xmcp server exposes named operations with typed inputs, validated outputs,
 and the token's existing permissions. The [Discord skill](skills/ph-discord/SKILL.md) covers their use.
 Ask uses its native MCP at `https://ask.purduehackers.com/api/mcp`.
+
+`phack create <url> [--slug <slug>]` creates a short link; `phack get <slug>`
+reads its destination. It uses `vercel login`, never overwrites an existing
+link, and reports the slug to reuse after an uncertain write.
 
 HCB is a read-only CLI: `hcb get /organizations/purdue-hackers` for public v3,
 or `hcb get /user/organizations --api v4` with `HCB_TOKEN` in the environment.

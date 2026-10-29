@@ -18,14 +18,26 @@ GitHub and Sentry organization: `purduehackers`. Discover Cloudflare account
 and zone IDs from the connected account. Repository instructions take priority
 over generic provider defaults; PH Bun repositories use Bun.
 
-For `phack.rs` links, use Vercel's Global Config tools on
-`ecfg_k1ocmrcfwo57k9v2klgtljycqsqj` in the PH team:
+For `phack.rs` links, use the installed `phack` CLI:
 
-- Each key is a slug; its value is `{ "d": "https://destination", "v": 0 }`.
-- Slugs match `^[A-Za-z0-9][A-Za-z0-9-]{0,62}[A-Za-z0-9]$`.
-  Reserve `404`, `api`, `dashboard`, `favicon`, and `login`.
-  Generate eight random alphanumeric characters if no slug was requested.
-- Use the atomic `create` operation. An existing slug with the same destination
-  can be returned; a different destination is a conflict, never an upsert.
-- After a timeout, read the exact key before retrying. Verify the redirect at
-  `https://phack.rs/<slug>`; propagation can take several seconds.
+```sh
+phack create https://purduehackers.com/events --slug events
+phack create https://purduehackers.com/events
+phack get events
+```
+
+It uses `vercel login` and the PH team's short-link store. No extra API key is
+needed. Without the installed command, run
+`bun "$HOME/.config/purduehackers/cli/phack/index.ts"` with the same arguments.
+Output is JSON; failures go to stderr and exit nonzero.
+
+Creation is atomic and never overwrites a destination. An existing identical
+link returns `status: "existing"`. Different destinations are conflicts.
+If creation cannot be verified, the error includes the slug: read that slug
+and retry with the same `--slug`. Do not generate another link after a timeout.
+The CLI generates an eight-character slug when omitted. Explicit slugs are
+2–64 letters/digits with optional internal hyphens; reserved routes are rejected.
+
+The result confirms stored configuration, not public propagation. Verify the
+redirect at the returned URL before reporting it live. Allow several seconds
+for propagation. This CLI does not update, delete, or reset visit counts.

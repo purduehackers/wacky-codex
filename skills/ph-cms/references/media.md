@@ -1,6 +1,13 @@
 # Media
 
-- Upload through Payload's current REST/multipart or direct Blob flow. Provide useful alt text and preserve the returned media ID.
-- Source, batch ID, and Discord provenance are useful for grouping Hack Night or image-drop uploads. Inspect the current field names rather than using the old bot wrapper's snake_case output.
-- Filter by source and batch when inspecting a specific upload group.
-- Before deleting an asset, check references: pages using it lose their image. Verify the intended records after upload or deletion.
+Upload through Payload's multipart or direct Blob flow. Provide required `alt`
+text and retain the returned media ID for relationship fields.
+
+- REST fields are `source`, `batchId`, `discordMessageId`, and `discordUserId`. Wack's snake_case projections are not REST input names.
+- `source` is `manual` (default), `hack-night`, or `discord-drop`. Preserve real provenance instead of inventing Discord IDs.
+- Use `where[batchId][equals]=<batch>` and `where[source][equals]=hack-night` to inspect a batch. Paginate before treating it as complete.
+- The CMS stores originals; image resizing happens on the events site. Do not rely on the old wrapper's thumbnail fields.
+- Before deleting an asset, check references: pages using it lose their image. Verify the intended record after upload or deletion.
+- The `wack_hacker` role can upload media but has restricted deletion access. Honor the server's response.
+
+Field source: [Media.ts](https://github.com/purduehackers/cms/blob/main/src/collections/Media.ts).
