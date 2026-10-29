@@ -37,7 +37,7 @@ http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "
 # Payload MCP keys are separate from service-account REST keys.
 [mcp_servers.cms]
 url = "https://cms.purduehackers.com/api/mcp"
-enabled = false
+enabled = true
 http_headers_helper = 'bun --env-file "$HOME/.config/purduehackers/.env.local" "$HOME/.config/purduehackers/codex/mcp/headers.ts" cms'
 
 # Lifecycle hooks; review and trust them with /hooks in Codex.

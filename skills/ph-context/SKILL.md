@@ -18,8 +18,7 @@ search, verification, enrichment, and lead management.
 The PH skill tree keeps provider-specific workflows in
 [Cloudflare](../ph-cloudflare/SKILL.md), [CMS](../ph-cms/SKILL.md),
 [Discord](../ph-discord/SKILL.md), [Figma](../ph-figma/SKILL.md),
-[finance](../ph-finance/SKILL.md), [GitHub](../ph-github/SKILL.md),
-[Linear](../ph-linear/SKILL.md), [Notion](../ph-notion/SKILL.md),
+[GitHub](../ph-github/SKILL.md), [Linear](../ph-linear/SKILL.md), [Notion](../ph-notion/SKILL.md),
 [Sentry](../ph-sentry/SKILL.md), and [Vercel](../ph-vercel/SKILL.md).
 Each links to topic references; load only what the current task needs.
 [PH operations](../ph-operations/SKILL.md) covers cross-provider work and short links.

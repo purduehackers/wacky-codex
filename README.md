@@ -8,8 +8,9 @@ A small set of dotfiles that gives Codex PH context, service connections, and re
 
 - **Connected tools.** GitHub, Vercel, Linear, Notion, Figma, Sentry, Cloudflare, and Hunter through MCP.
 - **Discord access.** Search messages and manage the server through [our Discord MCP](https://github.com/purduehackers/discord-mcp).
-- **PH knowledge.** Ask searches our knowledge base; skills cover deployments, events, finances, and other PH workflows.
-- **Useful CLIs.** Create short links with `phack` and read HCB financial data with `hcb`.
+- **PH knowledge.** Ask searches our knowledge base; skills cover deployments, events, and other PH workflows.
+- **CMS access.** Manage events, RSVPs, Hack Night sessions, media, and showcases through Payload MCP.
+- **Short links.** Create and look up `phack.rs` links with the `phack` CLI.
 - **Shared context.** Hooks load PH guidance when sessions and subagents start.
 
 ## Compared with Wack Hacker
@@ -24,8 +25,6 @@ A small set of dotfiles that gives Codex PH context, service connections, and re
 | PH workflows         | Built-in domain skills                       | Adapted skills in this repo                      |
 | Hosting              | Bot and agent services                       | Local configuration; connects to hosted services |
 | Community automation | Discord commands, events, and scheduled jobs | Not migrated                                     |
-
-CMS writes currently use REST instructions. Its read-only MCP is optional and needs a separate key.
 
 ## Get started
 
@@ -57,7 +56,7 @@ codex
 `.env.local` using [.env.example](.env.example) and adjust [config.toml](codex/config.toml).
 Disable any MCPs already connected through plugins. Review hooks with `/hooks` in Codex.
 
-Add `~/.local/bin` to `PATH` for `phack` and `hcb`. Private HCB reads need `HCB_TOKEN`.
-CMS MCP stays disabled until `PAYLOAD_MCP_API_KEY` is configured.
+Add `~/.local/bin` to `PATH` for `phack`.
+CMS uses `PAYLOAD_MCP_API_KEY` from the shared credentials.
 
 </details>

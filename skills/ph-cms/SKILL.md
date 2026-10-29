@@ -4,11 +4,18 @@ description: Manage Purdue Hackers CMS events, Hack Night sessions, media, micro
 ---
 
 CMS: `https://cms.purduehackers.com`; source: `purduehackers/cms`.
-Prefer its native MCP when available. The current MCP exposes reads and requires
-a Payload MCP key. The copied `PAYLOAD_CMS_API_KEY` is a service-account REST
-key, not an MCP key.
+Use its native MCP at `/api/mcp`. The harness supplies `PAYLOAD_MCP_API_KEY`
+as a Bearer token. This key acts as its linked service account; collection
+permissions and revocation still apply.
 
-Use the existing Payload REST API for operations the MCP does not expose:
+Discover the current tool schemas. Collections expose `find`, `create`,
+`update`, and `delete` tools, such as `findEvents` and `updateEvents`.
+Multiword collection names become camel case: `findHackNightSessions`.
+Create and update tools take document fields directly. Query `where` and
+`select` accept JSON strings; use the published tool schema.
+Check returned content for operation errors; an HTTP 200 alone does not prove a write succeeded.
+
+Use the existing Payload REST API for uploads or operations the MCP cannot handle:
 `/api/<collection>` and `/api/<collection>/<id>`, with
 `Authorization: service-accounts API-Key <key>`. Load the key with
 `bun --env-file "$HOME/.config/purduehackers/.env.local" <script.ts>` and read
