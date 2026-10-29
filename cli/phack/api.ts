@@ -1,6 +1,6 @@
 import { Result } from "better-result";
 
-import { PhackError } from "./phack-error";
+import { PhackError } from "./errors";
 
 /** Uses the existing Vercel login. Request bodies stay off command arguments. */
 export function api(path: string, body?: string): Promise<Result<string, PhackError>> {

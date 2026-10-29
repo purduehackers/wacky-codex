@@ -4,7 +4,7 @@ import { parseArgs } from "node:util";
 import { Result } from "better-result";
 
 import { getHcb } from "./client";
-import { HcbError } from "./hcb-error";
+import { HcbError } from "./errors";
 import { optionsSchema } from "./schemas";
 
 const usage =

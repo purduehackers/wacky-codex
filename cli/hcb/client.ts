@@ -2,7 +2,7 @@
 import { Result } from "better-result";
 import { z } from "zod";
 
-import { HcbError } from "./hcb-error";
+import { HcbError } from "./errors";
 import {
   cursorItemSchema,
   cursorPageSchema,

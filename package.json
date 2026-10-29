@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "bun test",
     "format": "oxfmt",
     "lint": "oxlint --deny-warnings",
     "typecheck": "tsc --noEmit"

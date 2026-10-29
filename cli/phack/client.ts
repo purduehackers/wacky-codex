@@ -2,7 +2,7 @@
 import { Result } from "better-result";
 
 import { api } from "./api";
-import { PhackError } from "./phack-error";
+import { PhackError } from "./errors";
 import { destinationSchema, slugSchema, storedLinkSchema } from "./schemas";
 
 /** Reads the stored destination without following the public redirect. */

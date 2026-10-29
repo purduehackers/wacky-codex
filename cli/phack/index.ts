@@ -4,7 +4,7 @@ import { parseArgs } from "node:util";
 import { Result } from "better-result";
 
 import { createLink, getLink } from "./client";
-import { PhackError } from "./phack-error";
+import { PhackError } from "./errors";
 
 const usage =
   "Usage: phack create <https://destination> [--slug <slug>]\n       phack get <slug>\nJSON output. Uses vercel login and the Purdue Hackers short-link store. Existing destinations are never overwritten.";
