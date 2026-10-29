@@ -8,6 +8,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@purduehackers/phack-cli": "0.1.0",
     "better-result": "^3",
     "zod": "^4.6.7"
   },

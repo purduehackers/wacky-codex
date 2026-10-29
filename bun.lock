@@ -5,6 +5,7 @@
     "": {
       "name": "@purduehackers/agent-harness",
       "dependencies": {
+        "@purduehackers/phack-cli": "0.1.0",
         "better-result": "^3",
         "zod": "^4.6.7",
       },
@@ -163,6 +164,8 @@
     "@oxlint/binding-win32-x64-msvc": ["@oxlint/binding-win32-x64-msvc@1.89.0", "", { "os": "win32", "cpu": "x64" }, "sha512-hLFJ/o0f/dTJh/EW0vmcbREYSQO9tYgfiAAlsOkiLFiJuRRWvYtFELUXN5o2ijpSo/tlO1n+YlWN58tZwPG18A=="],
 
     "@oxlint/plugins": ["@oxlint/plugins@1.77.0", "", {}, "sha512-6KtPXskPgpt+0Kyl2nNSxNnYXt7lbkxW1C7vi2L7xwtq/AisZlsmV+hnzOTEyM5tU1TxPv1GpTqpUBbZfPzBLg=="],
+
+    "@purduehackers/phack-cli": ["@purduehackers/phack-cli@0.1.0", "", { "dependencies": { "better-result": "^3", "zod": "^4.6.7" }, "bin": { "phack": "index.ts" } }, "sha512-G2PE2PESA/8SBYOiwDt+e1bWqhbafeIJAy7seT4a/QIZOOTx7BN4uwmkpPWA6aoChy6OKccP5DYd+9ckajjLhg=="],
 
     "@rayhanadev/ox": ["@rayhanadev/ox@0.4.0", "", { "dependencies": { "@clack/prompts": "^1.7.0", "@oxlint/plugins": "1.77.0", "jsonc-parser": "^3.3.1", "nypm": "^0.6.9" }, "bin": { "ox": "dist/cli.js" } }, "sha512-yFiUCZtJPuyVCl3Y64ZjnTDKqpx2bxx/BZRYmN4Clq2nCR00/kdpKqu4yPtCKFqcYwr0BBAaeM2g5nxF7fhqkQ=="],
 

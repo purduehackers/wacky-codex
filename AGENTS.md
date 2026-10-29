@@ -50,10 +50,3 @@ If the ASD-STE100 skill is available, use it when you write or revise substantia
 - Replace diagnostic placeholders with project-specific names and types.
 - Run Oxfmt and Oxlint after each correction.
 <!-- oxray:comments:end -->
-
-## Short links
-
-`phack` uses the PH team's Global Config store through the existing Vercel CLI login.
-Create links atomically with `operation: create` and `{ d: destination, v: 0 }`.
-Never overwrite another destination or reset visit counts during a retry.
-After an uncertain write, read the same slug before retrying. Preserve that slug in recovery instructions.

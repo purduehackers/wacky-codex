@@ -10,7 +10,7 @@ A small set of dotfiles that gives Codex PH context, service connections, and re
 - **Discord access.** Search messages and manage the server through [our Discord MCP](https://github.com/purduehackers/discord-mcp).
 - **PH knowledge.** Ask searches our knowledge base; skills cover deployments, events, and other PH workflows.
 - **CMS access.** Manage events, RSVPs, Hack Night sessions, media, and showcases through Payload MCP.
-- **Short links.** Create and look up `phack.rs` links with the `phack` CLI.
+- **Short links.** Create and look up `phack.rs` links with [`@purduehackers/phack-cli`](https://github.com/purduehackers/puhack.horse/tree/main/cli).
 - **Shared context.** Hooks load PH guidance when sessions and subagents start.
 
 ## Compared with Wack Hacker

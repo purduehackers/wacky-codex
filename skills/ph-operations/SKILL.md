@@ -26,9 +26,9 @@ phack create https://purduehackers.com/events
 phack get events
 ```
 
+The harness installs [`@purduehackers/phack-cli`](https://github.com/purduehackers/puhack.horse/tree/main/cli).
 It uses `vercel login` and the PH team's short-link store. No extra API key is
-needed. Without the installed command, run
-`bun "$HOME/.config/purduehackers/cli/phack/index.ts"` with the same arguments.
+needed. Without the installed command, run `bunx @purduehackers/phack-cli` with the same arguments.
 Output is JSON; failures go to stderr and exit nonzero.
 
 Creation is atomic and never overwrites a destination. An existing identical
