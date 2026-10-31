@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@purduehackers/agent-harness",
+      "name": "@purduehackers/wacky-codex",
       "dependencies": {
         "@purduehackers/phack-cli": "0.1.0",
         "better-result": "^3",

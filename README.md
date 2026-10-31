@@ -1,4 +1,4 @@
-# agent-harness
+# wacky-codex
 
 Purdue Hackers' Codex dotfiles: native MCP connections, shared PH context, and two focused skills.
 
@@ -25,7 +25,7 @@ scripts/
 
 [Wack Hacker](https://github.com/purduehackers/wack-hacker) runs an agent in Discord. This harness brings its PH workflows into Codex.
 
-|                | Wack Hacker              | agent-harness                     |
+|                | Wack Hacker              | wacky-codex                       |
 | -------------- | ------------------------ | --------------------------------- |
 | Workspace      | Discord conversations    | Codex sessions and local projects |
 | Service access | Custom provider wrappers | Native MCPs and the phack CLI     |
@@ -39,8 +39,8 @@ Discord bot automations remain in Wack Hacker. Available service actions depend 
 Requires Bun, Codex with hooks support, GitHub CLI, and Vercel CLI.
 
 ```sh
-git clone https://github.com/purduehackers/agent-harness.git
-cd agent-harness
+git clone https://github.com/purduehackers/wacky-codex.git
+cd wacky-codex
 ./scripts/install
 ```
 
@@ -68,3 +68,7 @@ Disable duplicate connections in [config.toml](codex/config.toml) when using pro
 Review hooks with `/hooks` in Codex. Add `~/.local/bin` to `PATH` for `phack`.
 
 </details>
+
+## License
+
+[MIT](LICENSE).
