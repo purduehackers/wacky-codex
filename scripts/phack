@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+# Resolve the symlink so credentials load from this checkout, not the working directory.
+repo=$(CDPATH= cd -- "$(dirname -- "$(realpath "$0")")/.." && pwd -P)
+exec bun --env-file="$repo/.env.local" "$repo/node_modules/.bin/phack" "$@"
