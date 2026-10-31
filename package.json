@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@purduehackers/phack-cli": "0.1.0",
+    "@purduehackers/phack": "https://github.com/purduehackers/puhack.horse/archive/c57a8143df2a44b54233a502979f1b1c3e41bcb8.tar.gz",
     "better-result": "^3",
     "zod": "^4.6.7"
   },

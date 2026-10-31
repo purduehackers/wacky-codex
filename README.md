@@ -7,7 +7,7 @@ Purdue Hackers' Codex dotfiles: native MCP connections, shared PH context, and t
 - **Connected services.** GitHub, Vercel, Linear, Notion, Figma, Sentry, Cloudflare, Hunter, and [Discord](https://github.com/purduehackers/discord-mcp) through native MCPs.
 - **PH knowledge.** Ask searches our knowledge base. Hooks load [PH accounts and context](codex/context.md) when sessions and subagents start.
 - **CMS.** [purdue-hackers-cms-skill](skills/purdue-hackers-cms-skill/SKILL.md) adds PH publishing and media workflows to Payload MCP.
-- **Short links.** [phack-rs-skill](skills/phack-rs-skill/SKILL.md) creates and looks up `phack.rs` links using [@purduehackers/phack-cli](https://github.com/purduehackers/puhack.horse/tree/main/cli).
+- **Short links.** [phack-rs-skill](skills/phack-rs-skill/SKILL.md) creates and looks up `phack.rs` links using [@purduehackers/phack](https://github.com/purduehackers/puhack.horse).
 
 ## Layout
 
@@ -19,6 +19,7 @@ skills/
 scripts/
   install                           # Link config, skills, and phack
   sync-env                          # Pull shared credentials from Vercel
+  phack                             # Run the API client with checkout credentials
 ```
 
 ## Compared with Wack Hacker
@@ -63,6 +64,8 @@ codex
 
 `sync-env` pulls credentials from PH's Vercel project into ignored `.env.local`.
 Alternatively, fill it using [.env.example](.env.example).
+Set `PHACK_TOKEN` to an organizer-owned API key from [phack.rs/dashboard](https://phack.rs/dashboard).
+The CLI reads this checkout’s `.env.local` from any working directory.
 Disable duplicate connections in [config.toml](codex/config.toml) when using provider plugins.
 
 Review hooks with `/hooks` in Codex. Add `~/.local/bin` to `PATH` for `phack`.
