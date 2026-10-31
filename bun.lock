@@ -5,7 +5,7 @@
     "": {
       "name": "@purduehackers/wacky-codex",
       "dependencies": {
-        "@purduehackers/phack": "https://github.com/purduehackers/puhack.horse/archive/c57a8143df2a44b54233a502979f1b1c3e41bcb8.tar.gz",
+        "@purduehackers/phack-cli": "0.2.0",
         "better-result": "^3",
         "zod": "^4.6.7",
       },
@@ -221,7 +221,7 @@
 
     "@oxlint/plugins": ["@oxlint/plugins@1.77.0", "", {}, "sha512-6KtPXskPgpt+0Kyl2nNSxNnYXt7lbkxW1C7vi2L7xwtq/AisZlsmV+hnzOTEyM5tU1TxPv1GpTqpUBbZfPzBLg=="],
 
-    "@purduehackers/phack": ["@purduehackers/phack@https://github.com/purduehackers/puhack.horse/archive/c57a8143df2a44b54233a502979f1b1c3e41bcb8.tar.gz", { "dependencies": { "@better-auth/api-key": "^1.7.14", "@better-auth/drizzle-adapter": "^1.7.14", "@elysiajs/eden": "^1.4.9", "@libsql/client": "^0.18.0", "better-auth": "^1.7.14", "drizzle-orm": "1.0.0-rc.5", "elysia": "^1.4.30" }, "bin": { "phack": "./src/cli.ts" } }, "sha512-pamW6XGHcFttSQ7fZSvW61FijoWlQsrWhK6AdiOR3k214uXO8051Gyx1IuP8slHEFuTfjA07JIeS/Bh7klHSuw=="],
+    "@purduehackers/phack-cli": ["@purduehackers/phack-cli@0.2.0", "", { "dependencies": { "@better-auth/api-key": "^1.7.14", "@better-auth/drizzle-adapter": "^1.7.14", "@elysiajs/eden": "^1.4.9", "@libsql/client": "^0.18.0", "better-auth": "^1.7.14", "drizzle-orm": "1.0.0-rc.5", "elysia": "^1.4.30" }, "bin": { "phack": "dist/cli.js" } }, "sha512-FmhgkWjUfRqK/v69foxm6tLMgLji4Hswp8J6BiACSytwJAKa/EjaG6LtyTsaIbTBTNjnX64ixtYQS/1XzOfpzA=="],
 
     "@rayhanadev/ox": ["@rayhanadev/ox@0.4.0", "", { "dependencies": { "@clack/prompts": "^1.7.0", "@oxlint/plugins": "1.77.0", "jsonc-parser": "^3.3.1", "nypm": "^0.6.9" }, "bin": { "ox": "dist/cli.js" } }, "sha512-yFiUCZtJPuyVCl3Y64ZjnTDKqpx2bxx/BZRYmN4Clq2nCR00/kdpKqu4yPtCKFqcYwr0BBAaeM2g5nxF7fhqkQ=="],
 

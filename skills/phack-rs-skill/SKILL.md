@@ -4,7 +4,7 @@ description: Create and look up Purdue Hackers phack.rs short links.
 ---
 
 Use the `phack` command from
-[@purduehackers/phack](https://github.com/purduehackers/puhack.horse).
+[@purduehackers/phack-cli](https://www.npmjs.com/package/@purduehackers/phack-cli).
 It requires Bun and `PHACK_TOKEN`, an organizer-owned API key from
 [the dashboard](https://phack.rs/dashboard). The installed command loads credentials
 from the harness checkout’s `.env.local`. Set `PHACK_URL=https://phack.rs` in that file.
