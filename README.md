@@ -7,7 +7,7 @@ Purdue Hackers' Codex dotfiles: native MCP connections, shared PH context, and t
 - **Connected services.** GitHub, Vercel, Linear, Notion, Figma, Sentry, Cloudflare, Hunter, and [Discord](https://github.com/purduehackers/discord-mcp) through native MCPs.
 - **PH knowledge.** Ask searches our knowledge base. Hooks load [PH accounts and context](codex/context.md) when sessions and subagents start.
 - **CMS.** [purdue-hackers-cms-skill](skills/purdue-hackers-cms-skill/SKILL.md) adds PH publishing and media workflows to Payload MCP.
-- **Short links.** [phack-rs-skill](skills/phack-rs-skill/SKILL.md) creates and looks up `phack.rs` links using [@purduehackers/phack](https://github.com/purduehackers/puhack.horse).
+- **Short links.** [phack-rs-skill](skills/phack-rs-skill/SKILL.md) creates and looks up `phack.rs` links using [@purduehackers/phack-cli](https://www.npmjs.com/package/@purduehackers/phack-cli).
 
 ## Layout
 
