@@ -1,30 +1,38 @@
 # agent-harness
 
-Bring Purdue Hackers' tools and workflows into Codex.
-
-A small set of dotfiles that gives Codex PH context, service connections, and reusable skills.
+Purdue Hackers' Codex dotfiles: native MCP connections, shared PH context, and two focused skills.
 
 ## Features
 
-- **Connected tools.** GitHub, Vercel, Linear, Notion, Figma, Sentry, Cloudflare, and Hunter through MCP.
-- **Discord access.** Search messages and manage the server through [our Discord MCP](https://github.com/purduehackers/discord-mcp).
-- **PH knowledge.** Ask searches our knowledge base.
-- **CMS access.** Payload MCP plus [PH publishing and media guidance](skills/purdue-hackers-cms-skill/SKILL.md).
-- **Short links.** The [phack.rs skill](skills/phack-rs-skill/SKILL.md) uses [`@purduehackers/phack-cli`](https://github.com/purduehackers/puhack.horse/tree/main/cli).
-- **Shared context.** Hooks load [PH accounts and context](codex/context.md) when sessions and subagents start.
+- **Connected services.** GitHub, Vercel, Linear, Notion, Figma, Sentry, Cloudflare, Hunter, and [Discord](https://github.com/purduehackers/discord-mcp) through native MCPs.
+- **PH knowledge.** Ask searches our knowledge base. Hooks load [PH accounts and context](codex/context.md) when sessions and subagents start.
+- **CMS.** [purdue-hackers-cms-skill](skills/purdue-hackers-cms-skill/SKILL.md) adds PH publishing and media workflows to Payload MCP.
+- **Short links.** [phack-rs-skill](skills/phack-rs-skill/SKILL.md) creates and looks up `phack.rs` links using [@purduehackers/phack-cli](https://github.com/purduehackers/puhack.horse/tree/main/cli).
+
+## Layout
+
+```text
+codex/                              # MCP config, PH context, hooks, authentication
+skills/
+  purdue-hackers-cms-skill/
+  phack-rs-skill/
+scripts/
+  install                           # Link config, skills, and phack
+  sync-env                          # Pull shared credentials from Vercel
+```
 
 ## Compared with Wack Hacker
 
-[Wack Hacker](https://github.com/purduehackers/wack-hacker) brings an agent into Discord. This repo brings PH workflows into Codex.
+[Wack Hacker](https://github.com/purduehackers/wack-hacker) runs an agent in Discord. This harness brings its PH workflows into Codex.
 
-|                      | Wack Hacker                                  | agent-harness                                    |
-| -------------------- | -------------------------------------------- | ------------------------------------------------ |
-| Where you work       | Discord conversations                        | Codex sessions                                   |
-| Service access       | Custom provider tools                        | MCP servers and small CLIs                       |
-| Coding               | Dedicated sandbox workflow                   | Codex's workspace and coding tools               |
-| PH workflows         | Built-in domain skills                       | CMS and short-link skills; native provider tools |
-| Hosting              | Bot and agent services                       | Local configuration; connects to hosted services |
-| Community automation | Discord commands, events, and scheduled jobs | Not migrated                                     |
+|                | Wack Hacker              | agent-harness                     |
+| -------------- | ------------------------ | --------------------------------- |
+| Workspace      | Discord conversations    | Codex sessions and local projects |
+| Service access | Custom provider wrappers | Native MCPs and the phack CLI     |
+| Guidance       | Provider skill trees     | PH context and two focused skills |
+| Agent runtime  | Hosted Eve application   | Codex                             |
+
+Discord bot automations remain in Wack Hacker. Available service actions depend on each MCP.
 
 ## Get started
 
@@ -36,8 +44,8 @@ cd agent-harness
 ./scripts/install
 ```
 
-Keep the checkout. After pulling updates, rerun `./scripts/install` to refresh skill links.
-The installer refuses to replace existing config files.
+The installer symlinks files and refuses existing config conflicts. It does not install provider plugins.
+Keep the checkout; rerun `./scripts/install` after `git pull` to refresh skill links.
 
 <details>
 <summary>Connect your accounts</summary>
@@ -53,11 +61,10 @@ done
 codex
 ```
 
-`sync-env` requires access to PH's Vercel project. For your own setup, fill
-`.env.local` using [.env.example](.env.example) and adjust [config.toml](codex/config.toml).
-Disable any MCPs already connected through plugins. Review hooks with `/hooks` in Codex.
+`sync-env` pulls credentials from PH's Vercel project into ignored `.env.local`.
+Alternatively, fill it using [.env.example](.env.example).
+Disable duplicate connections in [config.toml](codex/config.toml) when using provider plugins.
 
-Add `~/.local/bin` to `PATH` for `phack`.
-CMS uses `PAYLOAD_MCP_API_KEY` from the shared credentials.
+Review hooks with `/hooks` in Codex. Add `~/.local/bin` to `PATH` for `phack`.
 
 </details>
