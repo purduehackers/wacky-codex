@@ -8,10 +8,10 @@ A small set of dotfiles that gives Codex PH context, service connections, and re
 
 - **Connected tools.** GitHub, Vercel, Linear, Notion, Figma, Sentry, Cloudflare, and Hunter through MCP.
 - **Discord access.** Search messages and manage the server through [our Discord MCP](https://github.com/purduehackers/discord-mcp).
-- **PH knowledge.** Ask searches our knowledge base; skills cover deployments, events, and other PH workflows.
-- **CMS access.** Manage events, RSVPs, Hack Night sessions, media, and showcases through Payload MCP.
-- **Short links.** Create and look up `phack.rs` links with [`@purduehackers/phack-cli`](https://github.com/purduehackers/puhack.horse/tree/main/cli).
-- **Shared context.** Hooks load PH guidance when sessions and subagents start.
+- **PH knowledge.** Ask searches our knowledge base.
+- **CMS access.** Payload MCP plus [PH publishing and media guidance](skills/purdue-hackers-cms-skill/SKILL.md).
+- **Short links.** The [phack.rs skill](skills/phack-rs-skill/SKILL.md) uses [`@purduehackers/phack-cli`](https://github.com/purduehackers/puhack.horse/tree/main/cli).
+- **Shared context.** Hooks load [PH accounts and context](codex/context.md) when sessions and subagents start.
 
 ## Compared with Wack Hacker
 
@@ -22,7 +22,7 @@ A small set of dotfiles that gives Codex PH context, service connections, and re
 | Where you work       | Discord conversations                        | Codex sessions                                   |
 | Service access       | Custom provider tools                        | MCP servers and small CLIs                       |
 | Coding               | Dedicated sandbox workflow                   | Codex's workspace and coding tools               |
-| PH workflows         | Built-in domain skills                       | Adapted skills in this repo                      |
+| PH workflows         | Built-in domain skills                       | CMS and short-link skills; native provider tools |
 | Hosting              | Bot and agent services                       | Local configuration; connects to hosted services |
 | Community automation | Discord commands, events, and scheduled jobs | Not migrated                                     |
 
@@ -36,7 +36,8 @@ cd agent-harness
 ./scripts/install
 ```
 
-Keep the checkout; `git pull` updates the linked config and skills. The installer refuses to replace existing config files.
+Keep the checkout. After pulling updates, rerun `./scripts/install` to refresh skill links.
+The installer refuses to replace existing config files.
 
 <details>
 <summary>Connect your accounts</summary>

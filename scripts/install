@@ -24,6 +24,7 @@ check_link "$repo" "$target/.config/purduehackers"
 check_link "$repo/codex/config.toml" "$codex_dir/config.toml"
 check_link "$repo/node_modules/.bin/phack" "$target/.local/bin/phack" "$repo/cli/phack/index.ts"
 for skill in "$repo"/skills/*; do
+  [ -f "$skill/SKILL.md" ] || continue
   check_link "$skill" "$target/.agents/skills/$(basename -- "$skill")"
 done
 
@@ -33,7 +34,17 @@ link "$repo" "$target/.config/purduehackers"
 link "$repo/codex/config.toml" "$codex_dir/config.toml"
 link "$repo/node_modules/.bin/phack" "$target/.local/bin/phack"
 for skill in "$repo"/skills/*; do
+  [ -f "$skill/SKILL.md" ] || continue
   link "$skill" "$target/.agents/skills/$(basename -- "$skill")"
+done
+
+# Retire only obsolete skill links created by this checkout.
+for installed_skill in "$target"/.agents/skills/*; do
+  [ -L "$installed_skill" ] || continue
+  previous_skill="$repo/skills/$(basename -- "$installed_skill")"
+  if [ "$(readlink "$installed_skill")" = "$previous_skill" ] && [ ! -f "$previous_skill/SKILL.md" ]; then
+    rm "$installed_skill"
+  fi
 done
 
 # Retire only the profile link created by an earlier version of this installer.

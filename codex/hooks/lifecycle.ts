@@ -64,7 +64,7 @@ async function run() {
 
   const skills = resolve(import.meta.dir, "../../skills");
   const context = await Result.tryPromise({
-    try: () => Bun.file(join(skills, "ph-context/SKILL.md")).text(),
+    try: () => Bun.file(resolve(import.meta.dir, "../context.md")).text(),
     catch: () => new HarnessError({ message: "PH hook: context unavailable." }),
   });
   if (context.isErr()) {
@@ -78,10 +78,10 @@ async function run() {
       hookSpecificOutput: {
         hookEventName: name,
         additionalContext:
-          "Purdue Hackers configuration is active. PH skills are in " +
+          "Purdue Hackers configuration is active. PH-specific skills are in " +
           skills +
-          ". Read only the relevant provider skill and linked topic references.\n\n" +
-          context.value.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/u, "").trim(),
+          ". Use native provider MCPs and plugins for other services.\n\n" +
+          context.value.trim(),
       },
     }),
   );
